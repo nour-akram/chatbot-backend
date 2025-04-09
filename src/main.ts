@@ -24,6 +24,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   SwaggerModule.setup('api', app, document);
+  app.enableCors({
+    origin: ['http://localhost:5173', 'https://your-production-site.com'],
+    Credentials: true,
+  });
   await app.listen(process.env.PORT ?? 3000);
 }
 void bootstrap();
