@@ -37,7 +37,6 @@ export class ChatService {
 
   async addMessage(
     chatId: string,
-    userId: string,
     content: string,
     senderType: 'user' | 'assistant',
   ) {
@@ -45,7 +44,6 @@ export class ChatService {
     if (!chat) throw new NotFoundException('Chat not found');
 
     chat.messages.push({
-      senderId: userId,
       content,
       senderType,
       createdAt: new Date(),

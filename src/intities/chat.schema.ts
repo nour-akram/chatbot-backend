@@ -4,9 +4,6 @@ import { Document } from 'mongoose';
 @Schema({ timestamps: true, _id: true })
 export class Message {
   @Prop({ required: true })
-  senderId: string;
-
-  @Prop({ required: true })
   content: string;
 
   @Prop({ required: true, enum: ['user', 'assistant'] })

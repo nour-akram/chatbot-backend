@@ -44,7 +44,6 @@ export class AppModule implements NestModule {
       .forRoutes(
         { path: 'chats', method: RequestMethod.POST },
         { path: 'chats', method: RequestMethod.GET },
-        { path: 'chats/:chatId/messages', method: RequestMethod.POST },
       );
   }
 }
