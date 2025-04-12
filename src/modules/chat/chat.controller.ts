@@ -51,6 +51,7 @@ export class ChatController {
     return this.chatService.deleteChat(chatId);
   }
 
+  @ApiBearerAuth()
   @ApiParam({
     name: 'chatId',
     description: 'The ID of the chat to add message',
