@@ -35,15 +35,28 @@ export class ChatService {
     return chat.deleteOne();
   }
 
-  async addMessage(chatId: string, userId: string, content: string) {
+  async addMessage(
+    chatId: string,
+    userId: string,
+    content: string,
+    senderType: 'user' | 'assistant',
+  ) {
     const chat = await this.chatModel.findById(chatId);
     if (!chat) throw new NotFoundException('Chat not found');
 
     chat.messages.push({
       senderId: userId,
       content,
+      senderType,
       createdAt: new Date(),
     });
+
     return chat.save();
+  }
+
+  async getChatById(chatId: string, userId: string) {
+    const chat = await this.chatModel.findOne({ _id: chatId, userId });
+    if (!chat) throw new NotFoundException('Chat not found');
+    return chat;
   }
 }

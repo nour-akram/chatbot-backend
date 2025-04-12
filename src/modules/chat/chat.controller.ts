@@ -11,11 +11,7 @@ import {
 } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
-import {
-  CreateChatDto,
-  UpdateChatDto,
-  CreateMessageDto,
-} from './dtos/chat.dto';
+import { CreateChatDto, UpdateChatDto } from './dtos/chat.dto';
 
 @ApiTags('chats')
 @Controller('chats')
@@ -64,12 +60,21 @@ export class ChatController {
   addMessage(
     @Param('chatId') chatId: string,
     @Req() req: { user: { sub: string } },
-    @Body() createMessageDto: CreateMessageDto,
+    @Body()
+    createMessageDto: { content: string; senderType: 'user' | 'assistant' },
   ) {
     return this.chatService.addMessage(
       chatId,
       req.user.sub,
       createMessageDto.content,
+      createMessageDto.senderType,
     );
+  }
+
+  @ApiBearerAuth()
+  @ApiParam({ name: 'id', description: 'The ID of the chat' })
+  @Get(':id')
+  getChatById(@Param('id') id: string, @Req() req: { user: { sub: string } }) {
+    return this.chatService.getChatById(id, req.user.sub);
   }
 }

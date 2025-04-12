@@ -9,6 +9,9 @@ export class Message {
   @Prop({ required: true })
   content: string;
 
+  @Prop({ required: true, enum: ['user', 'assistant'] })
+  senderType: 'user' | 'assistant';
+
   @Prop({ default: Date.now })
   createdAt: Date;
 }
