@@ -10,8 +10,8 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { ChatService } from './chat.service';
-import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
-import { CreateChatDto, UpdateChatDto } from './dtos/chat.dto';
+import { ApiBearerAuth, ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
+import { AddMessageDto, CreateChatDto, UpdateChatDto } from './dtos/chat.dto';
 
 @ApiTags('chats')
 @Controller('chats')
@@ -51,17 +51,16 @@ export class ChatController {
     return this.chatService.deleteChat(chatId);
   }
 
-  @ApiBearerAuth()
   @ApiParam({
     name: 'chatId',
     description: 'The ID of the chat to add message',
   })
+  @ApiBody({ type: AddMessageDto })
   @Post(':chatId/messages')
   addMessage(
     @Param('chatId') chatId: string,
     @Req() req: { user: { sub: string } },
-    @Body()
-    createMessageDto: { content: string; senderType: 'user' | 'assistant' },
+    @Body() createMessageDto: AddMessageDto,
   ) {
     return this.chatService.addMessage(
       chatId,

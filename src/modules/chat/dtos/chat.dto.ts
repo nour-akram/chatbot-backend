@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  MaxLength,
+  IsIn,
+} from 'class-validator';
 
 export class CreateChatDto {
   @ApiProperty({ description: 'Title of the chat' })
@@ -17,9 +23,17 @@ export class UpdateChatDto {
   title?: string;
 }
 
-export class CreateMessageDto {
+export class AddMessageDto {
   @ApiProperty({ description: 'Message content' })
   @IsString()
   @IsNotEmpty()
   content: string;
+
+  @ApiProperty({
+    description: 'Sender type (either user or assistant)',
+    enum: ['user', 'assistant'],
+  })
+  @IsString()
+  @IsIn(['user', 'assistant'])
+  senderType: 'user' | 'assistant';
 }
