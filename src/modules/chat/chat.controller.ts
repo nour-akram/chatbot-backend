@@ -61,6 +61,7 @@ export class ChatController {
     @Param('chatId') chatId: string,
     @Body() createMessageDto: AddMessageDto,
   ) {
+    console.log('Adding message:', createMessageDto);
     return this.chatService.addMessage(
       chatId,
       createMessageDto.content,
