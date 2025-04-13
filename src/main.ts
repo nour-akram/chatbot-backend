@@ -27,7 +27,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:5173',
-      'https://chatbot-production-7f9b.up.railway.app/',
+      'https://chatbot-production-7f9b.up.railway.app',
     ],
     Credentials: true,
   });
