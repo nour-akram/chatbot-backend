@@ -25,7 +25,10 @@ async function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   SwaggerModule.setup('api', app, document);
   app.enableCors({
-    origin: ['http://localhost:5173', 'https://your-production-site.com'],
+    origin: [
+      'http://localhost:5173',
+      'https://chatbot-production-7f9b.up.railway.app/',
+    ],
     Credentials: true,
   });
   await app.listen(process.env.PORT ?? 3000);
